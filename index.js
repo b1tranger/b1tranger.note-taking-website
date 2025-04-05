@@ -137,6 +137,7 @@ noteInput.addEventListener('keydown', (e) => {
 downloadButton.addEventListener('click', downloadNotes);
 clearButton.addEventListener('click', clearNotes);
 
+
 // Prompt user before closing/refreshing the page
 window.addEventListener('beforeunload', (e) => {
     if (notes.length > 0) {

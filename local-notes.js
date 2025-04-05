@@ -158,3 +158,17 @@ window.addEventListener('beforeunload', function(e) {
         closeModal.style.display = 'flex';
     }
 });
+
+// Prompt user before closing/refreshing the page
+window.addEventListener('beforeunload', (e) => {
+    if (notes.length > 0) {
+        e.preventDefault();
+        e.returnValue = '';
+
+        // This will be shown by the browser
+        return 'You have unsaved notes. Would you like to download them before leaving?';
+    }
+});
+
+// Auto-download notes before closing tab
+window.addEventListener("beforeunload", downloadNotes);
