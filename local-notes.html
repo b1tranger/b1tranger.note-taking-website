@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>note-taking-website-localstorage</title>
+    <link rel="stylesheet" href="local-notes.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="header" align="center" style="margin-bottom: -20px;">
+            <h3>Now it's definitely taking notes</h3>
+        </div>
+        <div class="header" align="center">
+            <button class="btn" style="
+            margin: 5px;"><a href="index.html" style="color: rgb(0, 0, 0);text-decoration: none">Change to
+                    SessionStorage</a></button>
+            <button id="downloadBtn" class="btn" style="
+            margin: 5px;">Download Notes</button>
+            <button id="clearBtn" class="btn" style="
+            margin: 5px;">Clear All</button>
+        </div>
+
+    <div id="notesContainer" class="notes-container">
+        <div class="empty-message">Your notes will appear here. Start typing below!</div>
+    </div>
+
+    <div class="input-container">
+        <textarea id="noteInput" placeholder="Type your note here..."></textarea>
+        <button id="addNoteBtn">Add</button>
+    </div>
+    </div>
+
+    <div id="closeModal" class="modal">
+        <div class="modal-content">
+            <h2>Before you leave</h2>
+            <p>Would you like to download your notes before closing?</p>
+            <div class="modal-buttons">
+                <button id="modalDownloadBtn" class="modal-btn download-btn">Download</button>
+                <button id="modalCancelBtn" class="modal-btn cancel-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <script src="local-notes.js"></script>
+
+</body>
+
+</html>

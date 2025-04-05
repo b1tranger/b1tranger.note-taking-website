@@ -28,17 +28,17 @@ function saveNotes() {
 function createNoteElement(text, timestamp) {
     const noteElement = document.createElement('div');
     noteElement.className = 'note';
-    
+
     const noteText = document.createElement('div');
     noteText.textContent = text;
-    
+
     const noteTimestamp = document.createElement('div');
     noteTimestamp.className = 'timestamp';
     noteTimestamp.textContent = formatTimestamp(timestamp);
-    
+
     noteElement.appendChild(noteText);
     noteElement.appendChild(noteTimestamp);
-    
+
     return noteElement;
 }
 
@@ -51,7 +51,7 @@ function formatTimestamp(timestamp) {
 // Render all notes
 function renderNotes() {
     notesContainer.innerHTML = '';
-    
+
     for (const note of notes) {
         const noteElement = createNoteElement(note.text, note.timestamp);
         notesContainer.appendChild(noteElement);
@@ -66,13 +66,13 @@ function addNote() {
             text,
             timestamp: new Date().getTime()
         };
-        
+
         notes.push(newNote);
         saveNotes();
-        
+
         const noteElement = createNoteElement(newNote.text, newNote.timestamp);
         notesContainer.prepend(noteElement);
-        
+
         noteInput.value = '';
         noteInput.focus();
     }
@@ -84,22 +84,22 @@ function downloadNotes() {
         showNotification('No notes to download');
         return;
     }
-    
+
     let content = 'My Notes\n\n';
-    
+
     for (const note of notes) {
         const timestamp = formatTimestamp(note.timestamp);
         content += `[${timestamp}]\n${note.text}\n\n`;
     }
-    
+
     const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
-    
+
     const a = document.createElement('a');
     a.href = url;
     a.download = 'notes_' + new Date().toISOString().slice(0, 10) + '.txt';
     a.click();
-    
+
     URL.revokeObjectURL(url);
     showNotification('Notes downloaded successfully!');
 }
@@ -118,7 +118,7 @@ function clearNotes() {
 function showNotification(message) {
     notification.textContent = message;
     notification.classList.add('show');
-    
+
     setTimeout(() => {
         notification.classList.remove('show');
     }, 3000);
@@ -142,11 +142,14 @@ window.addEventListener('beforeunload', (e) => {
     if (notes.length > 0) {
         e.preventDefault();
         e.returnValue = '';
-        
+
         // This will be shown by the browser
         return 'You have unsaved notes. Would you like to download them before leaving?';
     }
 });
+
+// Auto-download notes before closing tab
+window.addEventListener("beforeunload", downloadNotes);
 
 // Load saved notes on page load
 loadNotes();

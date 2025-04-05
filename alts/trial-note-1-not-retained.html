@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat-Style Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        #notesContainer {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 10px;
+            display: flex;
+            flex-direction: column-reverse; /* Newest notes appear at the bottom */
+        }
+        .note {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 5px;
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        }
+        #inputContainer {
+            display: flex;
+            padding: 10px;
+            background: white;
+            border-top: 1px solid #ddd;
+        }
+        input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            margin-left: 10px;
+            padding: 10px;
+            border: none;
+            background: #007BFF;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="notesContainer"></div>
+
+    <div id="inputContainer">
+        <input type="text" id="noteInput" placeholder="Type a note...">
+        <button onclick="addNote()">Add</button>
+        <button onclick="downloadNotes()">Download</button>
+        <button onclick="clearNotes()">Clear Notes</button>
+    </div>
+
+    <script>
+        const notesContainer = document.getElementById("notesContainer");
+        const noteInput = document.getElementById("noteInput");
+
+        // Load notes from sessionStorage
+        function loadNotes() {
+            const notes = JSON.parse(sessionStorage.getItem("notes")) || [];
+            notesContainer.innerHTML = ""; // Clear previous content
+            notes.forEach(note => appendNote(note));
+        }
+
+        // Add a new note
+        function addNote() {
+            const text = noteInput.value.trim();
+            if (!text) return;
+
+            const note = { text, timestamp: new Date().toLocaleTimeString() };
+            const notes = JSON.parse(sessionStorage.getItem("notes")) || [];
+            notes.push(note);
+            sessionStorage.setItem("notes", JSON.stringify(notes));
+
+            appendNote(note);
+            noteInput.value = "";
+        }
+
+        // Append a note to the container
+        function appendNote(note) {
+            const div = document.createElement("div");
+            div.className = "note";
+            div.textContent = `[${note.timestamp}] ${note.text}`;
+            notesContainer.prepend(div);
+        }
+
+        // Download notes as a .txt file
+        function downloadNotes() {
+            const notes = JSON.parse(sessionStorage.getItem("notes")) || [];
+            if (notes.length === 0) {
+                alert("No notes to download.");
+                return;
+            }
+            const text = notes.map(note => `[${note.timestamp}] ${note.text}`).join("\n");
+            const blob = new Blob([text], { type: "text/plain" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "notes.txt";
+            link.click();
+        }
+
+        // Clear all notes
+        function clearNotes() {
+            if (confirm("Are you sure you want to delete all notes?")) {
+                sessionStorage.removeItem("notes");
+                notesContainer.innerHTML = "";
+            }
+        }
+
+        // Auto-download notes before closing tab
+        window.addEventListener("beforeunload", downloadNotes);
+
+        // Load saved notes on page load
+        loadNotes();
+    </script>
+
+</body>
+</html>
