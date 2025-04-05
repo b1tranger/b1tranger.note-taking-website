@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+    <link rel="stylesheet" href="index.css">
+   
+</head>
+<body>
+    <header>
+        <h1>Notes App</h1>
+        <div class="button-container">
+            <button id="download-notes" class="action-button">Download Notes</button>
+            <button id="clear-notes" class="action-button">Clear All</button>
+        </div>
+    </header>
+    
+    <div class="notes-container" id="notes-container">
+        <!-- Notes will be added here programmatically -->
+    </div>
+    
+    <div class="input-area">
+        <textarea id="note-input" placeholder="Type your note here..."></textarea>
+        <button id="add-note">+</button>
+    </div>
+    
+    <div id="notification" class="notification">Notes downloaded successfully!</div>
+    
+   <script src="index.js"></script>
+</body>
+</html>
