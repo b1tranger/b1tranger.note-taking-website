@@ -11,9 +11,13 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 1px 1px 100px black;
 }
 
 header {
+    
     background-color: #4a76a8;
     color: white;
     padding: 1rem;
