@@ -10,7 +10,11 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    max-width: 800px;
+    margin: auto;
+    box-shadow: 1px 1px 100px black;
 }
+
 
 a {
     -webkit-tap-highlight-color: transparent;
