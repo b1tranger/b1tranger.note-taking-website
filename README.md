@@ -1,3 +1,5 @@
+[  repository created on 2nd March 2025 ]
+
 # b1tranger.note-taking-website
 this should be a website with database or, pseudo-database (session storage) implementation
 
