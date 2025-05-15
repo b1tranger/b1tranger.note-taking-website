@@ -72,7 +72,10 @@ header {
     background-color: white;
     border-top: 1px solid #e0e0e0;
 
-    overflow: shown;
+    position:static;
+    bottom: 0;
+
+    /* overflow: shown; */
     /* background-color: #333; */
     /* position: fixed; */
     /* bottom: 0; */
